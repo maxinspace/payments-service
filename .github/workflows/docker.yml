@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 env:
-  TEST_TAG: rails-on-docker:test
+  TEST_TAG: payments-service:test
 
 jobs:
   build-and-test-image:
@@ -39,17 +39,17 @@ jobs:
 
       - name: Start
         run: |
-          docker run -d --rm --name=rails-on-docker --env SECRET_KEY_BASE=dummy ${{ env.TEST_TAG }}
+          docker run -d --rm --name=payments-service --env SECRET_KEY_BASE=dummy ${{ env.TEST_TAG }}
 
       - name: Logs
         run: |
           docker ps
-          docker logs rails-on-docker
+          docker logs payments-service
 
       - name: Check Health
         run: |
           for i in {1..30}; do
-            status=$(docker inspect --format='{{.State.Health.Status}}' rails-on-docker)
+            status=$(docker inspect --format='{{.State.Health.Status}}' payments-service)
             if [ "$status" = "healthy" ]; then
               echo "Container is healthy"
               exit 0
@@ -64,4 +64,4 @@ jobs:
 
       - name: Logs
         run: |
-          docker logs rails-on-docker
+          docker logs payments-service

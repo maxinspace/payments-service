@@ -48,6 +48,12 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
+# Templates
+gem "slim", "~> 5.1"
+
+# Background jobs
+gem "sidekiq", "~> 7.1"
+
 group :development, :test do
   gem "brakeman"
   gem "bundler-audit"
@@ -80,3 +86,15 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "jwt", "~> 2.7"
+
+gem "bcrypt", "~> 3.1"
+
+gem "aasm", "~> 5.5"
+
+gem "after_commit_everywhere", "~> 1.3"
+
+gem "sidekiq-cron", "~> 1.10"
+
+gem "html2slim", "~> 0.2.0"

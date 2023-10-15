@@ -20,7 +20,7 @@ require "action_cable/engine"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module Railsondocker
+module PaymentsService
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
@@ -40,5 +40,8 @@ module Railsondocker
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # use sidekiq for AJ
+    config.active_job.queue_adapter = :sidekiq
   end
 end

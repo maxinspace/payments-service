@@ -1,0 +1,4 @@
+purge_stale_transactions:
+  cron: "0 * * * *"
+  queue: default
+  class: Jobs::PurgeStaleTransactions

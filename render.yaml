@@ -9,7 +9,7 @@ services:
     name: mysite
     runtime: docker
     dockerfilePath: ./production.Dockerfile
-    repo: https://github.com/ryanwi/rails7-on-docker
+    repo: https://github.com/maxinspace/payments-service
     region: oregon
     branch: main
     plan: free

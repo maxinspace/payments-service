@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Merchants</h1>
+
+<%= link_to "Home", root_path %>
+<div id="merchants">
+  <% @merchants.each do |merchant| %>
+    <%= render merchant %>
+    <p>
+      <%= link_to "Show this merchant", merchant %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New merchant", new_merchant_path %>

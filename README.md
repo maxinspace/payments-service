@@ -7,7 +7,7 @@ Start here: https://github.com/ryanwi/rails7-on-docker/generate
 
 This app demonstrates Rails 7 with PostgreSQL, import maps, turbo, stimulus and hotwire, all running in Docker.
 
-**NOTE:** [There is also an example Rails 6 application working in Docker with Webpacker](https://github.com/ryanwi/rails-on-docker)
+**NOTE:** [There is also an example Rails 6 application working in Docker with Webpacker](https://github.com/ryanwi/payments-service)
 
 ## Features
 
@@ -16,7 +16,7 @@ This app demonstrates Rails 7 with PostgreSQL, import maps, turbo, stimulus and 
 * Dockerfile and Docker Compose configuration
 * PostgreSQL database
 * Redis
-* GitHub Actions for 
+* GitHub Actions for
   * tests
   * Rubocop for linting
   * Security checks with [Brakeman](https://github.com/presidentbeef/brakeman) and [bundler-audit](https://github.com/rubysec/bundler-audit)
@@ -75,22 +75,22 @@ docker compose up --build
 
 ### with [BuildKit](https://docs.docker.com/build/buildkit/)
 ```
-DOCKER_BUILDKIT=1 docker build --tag rails-on-docker --file production.Dockerfile . --load
+DOCKER_BUILDKIT=1 docker build --tag payments-service --file production.Dockerfile . --load
 ```
 
 Test the image can be used and Rails starts up, use a fake key for testing purposes only:
 ```
-docker run --rm --env SECRET_KEY_BASE=dummy rails-on-docker
+docker run --rm --env SECRET_KEY_BASE=dummy payments-service
 ```
 
 ### With legacy builder (no BuildKit)
 ```
-docker build --tag rails-on-docker --file production.Dockerfile .
+docker build --tag payments-service --file production.Dockerfile .
 ```
 
 Test the image can be used and Rails starts up, use a fake key for testing purposes only:
 ```
-docker run --rm --env SECRET_KEY_BASE=dummy rails-on-docker
+docker run --rm --env SECRET_KEY_BASE=dummy payments-service
 ```
 
 ## Deployment
@@ -115,7 +115,7 @@ Dockerizing Ruby and Rails development](https://evilmartians.com/chronicles/ruby
 * [docker init](https://docs.docker.com/engine/reference/commandline/init/)
 * [Rails 7.1 Dockerfile Generator Template](https://github.com/rails/rails/blob/main/railties/lib/rails/generators/rails/app/templates/Dockerfile.tt)
 
-### Rails 7 with importmaps 
+### Rails 7 with importmaps
 
 * [Alpha preview: Modern JavaScript in Rails 7 without Webpack](https://www.youtube.com/watch?v=PtxZvFnL2i0)
 

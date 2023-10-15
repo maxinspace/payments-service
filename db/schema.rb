@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_03_26_154219) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_15_073910) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "merchant_status", ["active", "inactive"]
+  create_enum "transaction_status", ["authorized", "charged", "reversed", "refunded", "error"]
+  create_enum "transaction_type", ["Transactions::Authorized", "Transactions::Charged", "Transactions::Reversed", "Transactions::Refunded", "Transactions::Error"]
 
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
@@ -52,22 +59,40 @@ ActiveRecord::Schema[7.1].define(version: 2023_03_26_154219) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "articles", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
+  create_table "merchants", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "email", null: false
+    t.enum "status", default: "active", null: false, enum_type: "merchant_status"
+    t.decimal "total_transaction_sum", precision: 10, scale: 2, default: "0.0", null: false
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_merchants_on_email", unique: true
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.bigint "article_id", null: false
-    t.text "content"
+  create_table "transactions", force: :cascade do |t|
+    t.uuid "uuid", default: -> { "uuid_generate_v4()" }, null: false
+    t.decimal "amount", precision: 10, scale: 2, null: false
+    t.enum "type", default: "Transactions::Authorized", null: false, enum_type: "transaction_type"
+    t.enum "status", default: "authorized", null: false, enum_type: "transaction_status"
+    t.string "customer_email"
+    t.string "customer_phone"
+    t.bigint "merchant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_comments_on_article_id"
+    t.index ["merchant_id"], name: "index_transactions_on_merchant_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "articles"
+  add_foreign_key "transactions", "merchants"
 end

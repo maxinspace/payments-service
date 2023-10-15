@@ -1,0 +1,26 @@
+<div id="<%= dom_id transaction %>">
+  <p>
+    <strong>Amount:</strong>
+    <%= transaction.amount %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= transaction.status %>
+  </p>
+
+  <p>
+    <strong>Customer Email:</strong>
+    <%= transaction.customer_email %>
+  </p>
+
+  <p>
+    <strong>Customer Phone:</strong>
+    <%= transaction.customer_phone %>
+  </p>
+
+  <p>
+    <strong>Merchant:</strong>
+    <%= link_to "Merchant", transaction.merchant %>
+  </p>
+</div>

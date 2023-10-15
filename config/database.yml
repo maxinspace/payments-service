@@ -5,11 +5,11 @@ default: &default
 
 development:
   <<: *default
-  database: railsondocker_development
+  database: payments_service_development
 
 test:
   <<: *default
-  database: railsondocker_test
+  database: payments_service_test
 
 production:
   <<: *default
