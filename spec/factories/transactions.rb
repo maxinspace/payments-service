@@ -5,6 +5,31 @@ FactoryBot.define do
     status { :authorized }
     customer_email { "MyString" }
     customer_phone { "MyString" }
-    merchant { nil }
+    merchant { create(:merchant) }
+
+    trait :authorized do
+      status { :authorized }
+      type { 'Transactions::Authorized' }
+    end
+
+    trait :charged do
+      status { :charged }
+      type { 'Transactions::Charged' }
+    end
+
+    trait :reversed do
+      status { :reversed }
+      type { 'Transactions::Reversed' }
+    end
+
+    trait :refunded do
+      status { :refunded }
+      type { 'Transactions::Refunded' }
+    end
+
+    trait :error do
+      status { :error }
+      type { 'Transactions::Error' }
+    end
   end
 end

@@ -14,7 +14,9 @@ class Transactions::Api::Create
 
     validate_merchant(transaction)
 
-    transaction.save
+    transaction.save unless transaction.errors.any?
+
+    transaction
   end
 
   private

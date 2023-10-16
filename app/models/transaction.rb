@@ -5,6 +5,10 @@ class Transaction < ApplicationRecord
 
   belongs_to :merchant
 
+  validates :amount, presence: true, numericality: { greater_than: 0 }
+  validates :status, presence: true
+  validates :type, presence: true
+
   aasm(:status) do
     state :authorized, initial: true
     state :charged
